@@ -1,0 +1,30 @@
+doctype html
+html 
+    head
+        title='Tappy app'
+        script(src='/socket.io/socket.io.js')
+        script(src='bower_components/jquery/dist/jquery.min.js')
+     
+                 
+            
+    body
+        h1 HELLO WORLD
+        div(id=chat_history,style='width:200px;min-height:100px;background:pink')
+            ul#messages
+                
+        textarea(col=10,id='chat')
+        button(id='btnSend') send
+     
+    script.
+        var socket=io();
+        $(function(){
+             $('#btnSend').click(function(){
+                   socket.emit('chat message',$('#chat').val())
+                      $('#chat').val('');
+                  })
+                 socket.on('chat message',function(msg){
+                 $('#messages').append('<li>'+msg+'</li>')
+             })
+        })
+        
+         
